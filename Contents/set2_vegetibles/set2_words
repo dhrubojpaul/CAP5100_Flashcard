@@ -1,0 +1,7 @@
+set2_vegetables
+{chn:"土豆", eng:"potato"},
+{chn:"黄瓜", eng:"cucumber"},
+{chn:"菜花", eng:"cauliflower"},
+{chn:"茄子", eng:"eggplant"},
+{chn:"生菜", eng:"lettuce"},
+{chn:"洋葱", eng:"onion"}
