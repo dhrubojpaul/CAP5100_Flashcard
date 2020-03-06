@@ -29,24 +29,6 @@ var shuffleArray = function(array) {
     }
 }
 
-Vue.component("cards", {
-    template: `
-    <v-card-text>
-        <v-toolbar color="white" flat><v-toolbar-title>{{countdown}}</v-toolbar-title></v-toolbar>
-        <h1>Read Flashcards</h1>
-    </v-card-text>
-    `,
-    data(){
-        return{
-            duration:10,
-            countdown: undefined
-        }
-    },
-    mounted(){
-        setCountdown(this);
-    },
-});
-
 Vue.component("quiz", {
     props:['vocab', 'stage'],
     template: `
@@ -120,12 +102,6 @@ Vue.component("quiz", {
         setCountdown(this);
         this.testNextWord(this.vocab);
     },
-});
-
-Vue.component("assessment", {
-    template: `
-    <div>assessment</div>
-    `
 });
 
 var vue = new Vue({
