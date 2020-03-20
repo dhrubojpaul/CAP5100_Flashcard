@@ -34,15 +34,21 @@ Vue.component("quiz", {
     template: `
     <v-card-text>
         <h1>{{countdown}}</h1><br/>
-        <h3>Choose the correct answer.</h3><br/>
-        <v-radio-group v-model="radios" mandatory>
-            <v-row v-for="n in 4" :key="n" >
-                <v-col>Word</v-col>
-                <v-col><v-img src="./assets/apple_photo.png" height=80px contain></v-img></v-col>
-                <v-col><audio controls src="./assets/apple_chnaudio.mp3"></audio></v-col>
-                <v-col><v-radio label="Radio 1" :value="n"></v-radio></v-col>
-            </v-row>
-        </v-radio-group>
+        <v-simple-table dense>
+            <template v-slot:default>
+            <thead></thead>
+            <tbody>
+                <v-radio-group v-model="radios" mandatory>
+                    <tr v-for="n in 4" :key="n">
+                        <td>Word</td>
+                        <td><img src="./assets/apple_photo.png" height=54px></img></td>
+                        <td><audio controls src="./assets/apple_chnaudio.mp3"></audio></td>
+                        <td><v-radio label="Select" :value="n"></v-radio></td>
+                    </tr>
+                </v-radio-group>
+            </tbody>
+            </template>
+        </v-simple-table>
     </v-card-text>
     `,
     data(){
