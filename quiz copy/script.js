@@ -34,20 +34,15 @@ Vue.component("quiz", {
     template: `
     <v-card-text>
         <h1>{{countdown}}</h1><br/>
-        <h3>Choose the correct answer.</h3><br/>
-        <v-radio-group v-model="radios" mandatory>
-            <v-row v-for="n in 4" :key="n" >
-                <v-col>Word</v-col>
-                <v-col><v-img src="./assets/apple_photo.png" height=80px contain></v-img></v-col>
-                <v-col><audio controls src="./assets/apple_chnaudio.mp3"></audio></v-col>
-                <v-col><v-radio label="Radio 1" :value="n"></v-radio></v-col>
-            </v-row>
-        </v-radio-group>
+        <h3>Choose the correct translation.</h3><br/>
+        <h1>{{currentWord.chn}}</h1>
+        <v-btn block x-large v-for="option in options" :disabled=disabled :color=option.color
+            @click="verify(option)">{{option.eng}}</v-btn>
     </v-card-text>
     `,
     data(){
         return{
-            duration:600,
+            duration:60,
             countdown: undefined,
             currentWord: undefined,
             suggestedWord: undefined,
@@ -105,7 +100,7 @@ Vue.component("quiz", {
     },
     mounted(){
         setCountdown(this);
-        //this.testNextWord(this.vocab);
+        this.testNextWord(this.vocab);
     },
 });
 
@@ -113,17 +108,20 @@ var vue = new Vue({
     el: "#app",
     vuetify: new Vuetify(),
     data: {
-        asset: [
-            {chn:"苹果", eng:"apple", chnaudio: ""},
-            {chn:"香蕉", eng:"banana"},
-            {chn:"橙子", eng:"orange"},
-            {chn:"草莓", eng:"strawberry"},
-            {chn:"西瓜", eng:"watermelon"},
-            {chn:"土豆", eng:"potato"},
-            {chn:"黄瓜", eng:"cucumber"},
-            {chn:"菜花", eng:"cauliflower"},
-            {chn:"生菜", eng:"lettuce"},
-            {chn:"洋葱", eng:"onion"}
-        ]
+        vocabulary: [
+            {chn:"苹果", eng:"apple", set:1, id: 1, },
+            {chn:"香蕉", eng:"banana", set:1, id: 2, },
+            {chn:"芒果", eng:"mango", set:1, id: 3, },
+            {chn:"橙子", eng:"orange", set:1, id: 4, },
+            {chn:"草莓", eng:"strawberry", set:1, id: 5, },
+            {chn:"西瓜", eng:"watermelon", set:1, id: 6, },
+            {chn:"土豆", eng:"potato", set:2, id: 7, },
+            {chn:"黄瓜", eng:"cucumber", set:2, id: 8, },
+            {chn:"菜花", eng:"cauliflower", set:2, id: 9, },
+            {chn:"茄子", eng:"eggplant", set:2, id: 10, },
+            {chn:"生菜", eng:"lettuce", set:2, id: 11, },
+            {chn:"洋葱", eng:"onion", set:2, id: 12, }
+        ],
+        stage: 1
     }, 
 });
