@@ -35,83 +35,39 @@ Vue.component("quiz", {
     <v-card-text>
         <h1>{{countdown}}</h1><br/>
         <v-simple-table dense>
-            <template v-slot:default>
             <thead></thead>
             <tbody>
-                <v-radio-group v-model="radios" mandatory>
+                <v-radio-group v-model="values.selected">
                     <tr v-for="n in 4" :key="n">
-                        <td>Word</td>
+                        <td><v-radio :value="n"></v-radio></td>
+                        <td >Word</td>
                         <td><img src="./assets/apple_photo.png" height=54px></img></td>
                         <td><audio controls src="./assets/apple_chnaudio.mp3"></audio></td>
-                        <td><v-radio label="Select" :value="n"></v-radio></td>
                     </tr>
                 </v-radio-group>
             </tbody>
-            </template>
         </v-simple-table>
+        <v-btn block v-if="values.role==2 && values.selected">Assist</v-btn>
+        <v-btn block v-if="values.role==1 && values.selected">Submit</v-btn>
+        <v-btn block v-if="values.isSubmitted && values.selected">Next</v-btn>
     </v-card-text>
     `,
     data(){
         return{
             duration:600,
             countdown: undefined,
-            currentWord: undefined,
-            suggestedWord: undefined,
-            options:undefined,
-            disabled: true,
-            history: []
+            values: {
+                selected: undefined,
+                role: undefined, //submitter 1 hinter 2
+                isSubmitted: undefined
+            }
         }
     },
     methods: {
-        testNextWord(vocabulary){
-            this.suggestedWord = undefined;this.options=undefined;this.disabled=true;
-            this.currentWord = vocabulary[getRandomInt(0,vocabulary.length)];
-            this.options = [];
-            var tempOptions = [];
-            tempOptions.push(this.currentWord);
-            tempOptions[0].isCorrect = true;
-            for(var i=1;i<=3;i++){
-                while(!tempOptions[i]){
-                    var randomIndex = getRandomInt(0,vocabulary.length);
-                    if(!tempOptions.find(function(option){return option.id == randomIndex+1})){
-                        tempOptions.push(vocabulary[randomIndex]);
-                    } 
-                }
-            }
-            shuffleArray(tempOptions);
-
-            tempOptions.forEach(function(item,index){
-                item.color = undefined;
-            });
-
-            var suggestedIndex = getRandomInt(0,4);
-            tempOptions[suggestedIndex].isSuggested = true;
-            this.suggestedWord = tempOptions[suggestedIndex];
-
-            this.options = Array.from(tempOptions);
-            this.history.push(this.currentWord.id);
-            var component = this;
-            setTimeout(function(){
-                component.disabled = false;
-                component.suggestedWord.color = "primary";
-            }, getRandomInt(3000,8000));
-        },
-        verify(option){
-            if(option.id == this.currentWord.id){
-                option.color="green";
-            } else {
-                option.color="red";
-                this.options.find(function(item){return item.isCorrect==true;}).color="green";
-            }
-            var component = this;
-            setTimeout(function(){
-                component.testNextWord(component.vocab);
-            }, 5000);
-        }
+        
     },
     mounted(){
         setCountdown(this);
-        //this.testNextWord(this.vocab);
     },
 });
 
@@ -120,16 +76,16 @@ var vue = new Vue({
     vuetify: new Vuetify(),
     data: {
         asset: [
-            {chn:"苹果", eng:"apple", chnaudio: ""},
-            {chn:"香蕉", eng:"banana"},
-            {chn:"橙子", eng:"orange"},
-            {chn:"草莓", eng:"strawberry"},
-            {chn:"西瓜", eng:"watermelon"},
-            {chn:"土豆", eng:"potato"},
-            {chn:"黄瓜", eng:"cucumber"},
-            {chn:"菜花", eng:"cauliflower"},
-            {chn:"生菜", eng:"lettuce"},
-            {chn:"洋葱", eng:"onion"}
+            {id:1, chn:"苹果", eng:"apple", chnaudio: "./assets/apple_chnaudio.mp3", engaudio: "./assets/apple_engaudio.mp3", image: "./assets/apple_photo.png"},
+            {id:2, chn:"香蕉", eng:"banana", chnaudio: "./assets/banana_chnaudio.mp3", engaudio: "./assets/banana_engaudio.mp3", image: "./assets/banana_photo.png"},
+            {id:3, chn:"橙子", eng:"orange", chnaudio: "./assets/orange_chnaudio.mp3", engaudio: "./assets/orange_engaudio.mp3", image: "./assets/orange_photo.png"},
+            {id:4, chn:"草莓", eng:"strawberry", chnaudio: "./assets/strawberry_chnaudio.mp3", engaudio: "./assets/strawberry_engaudio.mp3", image: "./assets/strawberry_photo.png"},
+            {id:5, chn:"西瓜", eng:"watermelon", chnaudio: "./assets/watermelon_chnaudio.mp3", engaudio: "./assets/watermelon_engaudio.mp3", image: "./assets/watermelon_photo.png"},
+            {id:6, chn:"土豆", eng:"potato", chnaudio: "./assets/potato_chnaudio.mp3", engaudio: "./assets/potato_engaudio.mp3", image: "./assets/potato_photo.png"},
+            {id:7, chn:"黄瓜", eng:"cucumber", chnaudio: "./assets/cucumber_chnaudio.mp3", engaudio: "./assets/cucumber_engaudio.mp3", image: "./assets/cucumber_photo.png"},
+            {id:8, chn:"菜花", eng:"cauliflower", chnaudio: "./assets/cauliflower_chnaudio.mp3", engaudio: "./assets/cauliflower_engaudio.mp3", image: "./assets/cauliflower_photo.png"},
+            {id:9, chn:"生菜", eng:"lettuce", chnaudio: "./assets/lettuce_chnaudio.mp3", engaudio: "./assets/lettuce_engaudio.mp3", image: "./assets/lettuce_photo.png"},
+            {id:10, chn:"洋葱", eng:"onion", chnaudio: "./assets/onion_chnaudio.mp3", engaudio: "./assets/onion_engaudio.mp3", image: "./assets/onion_photo.png"},
         ]
     }, 
 });
