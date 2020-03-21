@@ -31,7 +31,7 @@ Vue.component("quiz", {
             <v-toolbar-title>Score: {{score}}</v-toolbar-title>
         </v-toolbar>
         <br/>
-        <v-simple-table dense>
+        <v-simple-table>
             <tbody>
                 <tr>
                     <td>{{current.type==1 ? current.word.chn : current.word.eng}}</td>
@@ -41,8 +41,8 @@ Vue.component("quiz", {
             </tbody>
         </v-simple-table>
 
-        <h3>{{instruction}}</h3>
-
+        <br/>
+        <h4>Options</h4>
         <v-simple-table dense>
             <tbody>
                 <v-radio-group v-model="values.selected" :readonly="(current.hint && !values.isHinted) || values.isSubmitted">
@@ -58,6 +58,11 @@ Vue.component("quiz", {
                 </v-radio-group>
             </tbody>
         </v-simple-table>
+
+        <div class="teal darken-2 text-center">
+            <span class="white--text">{{instruction}}</span>
+        </div>
+
         <v-btn block v-if="values.role==1 && values.selected && !values.isSubmitted && !values.isHinted" @click="assist">Assist</v-btn>
         <v-btn block v-if="values.role==2 && values.selected && !values.isSubmitted && values.isHinted" @click="submit">Submit</v-btn>
         <v-btn block v-if="values.isSubmitted && values.selected && currentIndex<39" @click="next">Next</v-btn>
