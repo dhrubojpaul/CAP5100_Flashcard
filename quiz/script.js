@@ -32,7 +32,7 @@ Vue.component("quiz", {
         <v-toolbar color="indigo" dark >
             <v-toolbar-title>{{countdown}}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-toolbar-title>Score: {{score}}</v-toolbar-title>
+            <v-toolbar-title>Score: {{score.right + " out of " + score.total}}</v-toolbar-title>
         </v-toolbar>
         <br/>
         <v-simple-table>
@@ -77,7 +77,7 @@ Vue.component("quiz", {
     data(){
         return{
             duration:600,
-            score: 0,
+            score: {right:0,wrong:0,total:0},
             countdown: undefined,
             currentIndex: 0,
             current: {},
@@ -224,7 +224,9 @@ Vue.component("quiz", {
         autoSubmit: function(){
             this.values.selected = this.current.autoSubmittedOption;
             this.values.isSubmitted = true;
-            if(this.values.selected == this.current.word.id){this.score++;}
+            if(this.values.selected == this.current.word.id){this.score.right++;}
+            else{this.score.wrong++;}
+            this.score.total++;
         },
         startSubmitCountdown: function(){
             var component = this;
@@ -234,7 +236,10 @@ Vue.component("quiz", {
         },
         submit: function(){
             this.values.isSubmitted = true;
-            if(this.values.selected == this.current.word.id){this.score++;}
+
+            if(this.values.selected == this.current.word.id){this.score.right++;}
+            else{this.score.wrong++;}
+            this.score.total++;
         },
         next: function(){
             this.currentIndex++;
