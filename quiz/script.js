@@ -52,7 +52,7 @@ Vue.component("quiz", {
         <v-radio-group v-model="values.selected" :readonly="(current.hint && !values.isHinted) || values.isSubmitted">
         <v-card class="d-flex justify-space-between mb-3" height=54px flat v-for="option in current.options">
             <v-card class="pa-2" flat><v-radio :value=option.id></v-radio></v-card>
-            <v-card class="pa-2" flat>{{current.type == 1 ? option.eng : current.word.chn+ ' (' + current.word.pinyin + ')'}}</v-card>
+            <v-card class="pa-2" flat>{{current.type == 1 ? option.eng : option.chn+ ' (' + option.pinyin + ')'}}</v-card>
             <v-card class="pa-0"  flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
             <v-card flat>
                 <v-btn style="margin:0 !important" icon @click="play(option.id)"><v-icon>mdi-play</v-icon></v-btn>
