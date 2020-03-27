@@ -39,7 +39,7 @@ Vue.component("quiz", {
             <tbody>
                 <tr>
                     <td>{{current.type==1 ? current.word.chn+ ' (' + current.word.pinyin + ')' : current.word.eng}}</td>
-                    <!--<td><img height="100px" :src="current.word.image"></img></td>-->
+                    <td v-if="current.type == 2"><img :src="current.word.image" height=54px></img></td>
                     <td><audio controls autoplay :src="current.type == 1 ? current.word.chnaudio : current.word.engaudio"></audio></td>
                 </tr>
             </tbody>
@@ -52,7 +52,8 @@ Vue.component("quiz", {
         <v-radio-group v-model="values.selected" :readonly="(current.hint && !values.isHinted) || values.isSubmitted">
         <v-card tile :color=color[optionIndex] class="d-flex justify-space-between mb-3" height=54px flat v-for="(option,optionIndex) in current.options">
             <v-card tile class="pa-2" flat><v-radio :value=option.id></v-radio></v-card>
-            <v-card tile width=115px class="pa-2" :color=color[optionIndex] flat>{{current.type == 1 ? option.eng : option.chn+ ' (' + option.pinyin + ')'}}</v-card>
+            <v-card tile width=115px class="pa-2" :color=color[optionIndex] flat>{{current.type == 1 ? option.eng : option.chn}}</v-card>
+            <v-card tile width=130px class="pa-2" :color=color[optionIndex] flat v-if="current.type == 2">{{option.pinyin}}</v-card>
             <v-card tile class="pa-0" :color=color[optionIndex] flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
             <v-card tile :color=color[optionIndex] flat>
                 <v-btn style="margin:0 !important" icon @click="play(option.id)"><v-icon>mdi-play</v-icon></v-btn>
@@ -98,7 +99,7 @@ Vue.component("quiz", {
                 //question, options, type, hint
                 //type can be chinese->english(1) or english->chinese(2)
                 //if there is no hint, that means player is the hinter
-                {q:1,o:[3,1,6,10], t:1, h:1},
+                {q:1,o:[3,1,6,10], t:1, h:6},
                 {q:2,o:[1,5,2,4], t:1, h:2},
                 {q:3,o:[7,9,5,3], t:1, h:3},
                 {q:4,o:[4,10,8,1], t:1, h:4},
