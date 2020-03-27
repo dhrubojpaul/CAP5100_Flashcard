@@ -6,6 +6,9 @@ var play = function(id){
 Vue.component("cards", {
     template: `
     <v-container>
+    <div class="text-center">
+        <v-icon x-small :color="n==index+1?'#676767':'#EDEDED'" v-for="n in 10" class="ma-3">mdi-circle</v-icon>
+    </div>
     <v-card height=60vh @click="chnSide = !chnSide">
         <v-container fill-height >
             <v-row justify="center" align="center">
@@ -25,7 +28,14 @@ Vue.component("cards", {
         </v-container>
         
     </v-card>
-    <v-btn block @click="next">Next</v-btn>
+
+    
+
+    <v-row>
+        <v-col cols=12 md=6 sm=6><v-btn block @click="previous">Previous</v-btn></v-col>
+        <v-col cols=12 md=6 sm=6><v-btn block @click="next">Next</v-btn></v-col>
+    </v-row>
+    
     </v-container>
     `,
     data(){
@@ -55,10 +65,33 @@ Vue.component("cards", {
             this.chnSide=true;
             this.index = this.index<9 ? this.index+1 : 0;
             this.word = this.asset[this.index];
+        },
+        previous: function(){
+            this.chnSide=true;
+            this.index = this.index==0 ? 9 : this.index-1;
+            this.word = this.asset[this.index];
         }
     },
     mounted(){
         this.word = this.asset[this.index];
+
+        this._keyListener = function(e) {
+            switch (e.keyCode) {
+                case 32:
+                    this.chnSide = !this.chnSide;
+                    break;
+                case 37:
+                    this.previous();
+                    break;
+                case 39:
+                    this.next();
+                    break;
+            }
+        };
+        document.addEventListener('keydown', this._keyListener.bind(this));
+    },
+    beforeDestroy() {
+        document.removeEventListener('keydown', this._keyListener);
     }
 });
 
