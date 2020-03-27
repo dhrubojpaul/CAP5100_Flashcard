@@ -28,47 +28,57 @@ var play = function(id){
 
 Vue.component("quiz", {
     template: `
-    <v-card-text>
+    <v-container>
+    <v-card>
         <v-toolbar color="indigo" dark >
             <v-toolbar-title>{{countdown}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-title>Score: {{score.right + " out of " + score.total}}</v-toolbar-title>
         </v-toolbar>
-        <br/>
-        <v-simple-table>
-            <tbody>
-                <tr>
-                    <td>{{current.type==1 ? current.word.chn+ ' (' + current.word.pinyin + ')' : current.word.eng}}</td>
-                    <td v-if="current.type == 2"><img :src="current.word.image" height=54px></img></td>
-                    <td><audio controls autoplay :src="current.type == 1 ? current.word.chnaudio : current.word.engaudio"></audio></td>
-                </tr>
-            </tbody>
-        </v-simple-table>
+
+        <v-card class="pa-3" flat tile>
+        <v-row justify="center" align="center">
+            <v-col cols=12 md=12 sm=12>
+            <div align=center>
+                <v-card tile height=110px @click="play('word')" flat>
+                    <v-card flat tile v-if="current.type == 2"><img :src="current.word.image" height=60px></img></v-card>
+                    <v-card flat tile class="display-1 font-weight-black" height=60px v-if="current.type==1">{{current.word.chn}}</v-card>
+                    <v-card flat tile class="headline font-weight-medium" height=50px>{{current.type==1 ? current.word.pinyin : current.word.eng}}</v-card>
+                    <audio autoplay id="word" :src="current.type == 1 ? current.word.chnaudio : current.word.engaudio"></audio>
+                </v-card>
+            </div>
+            </v-col>
+        </v-row>
+        </v-card>
 
         <div class="teal darken-2 text-center">
             <span class="white--text">{{instruction}}</span>
         </div>  
 
-        <v-radio-group v-model="values.selected" :readonly="(current.hint && !values.isHinted) || values.isSubmitted">
-        <v-card tile :color=color[optionIndex] class="d-flex justify-space-between mb-3" height=54px flat v-for="(option,optionIndex) in current.options">
-            <v-card tile class="pa-2" flat><v-radio :value=option.id></v-radio></v-card>
-            <v-card tile width=115px class="pa-2" :color=color[optionIndex] flat>{{current.type == 1 ? option.eng : option.chn}}</v-card>
-            <v-card tile width=130px class="pa-2" :color=color[optionIndex] flat v-if="current.type == 2">{{option.pinyin}}</v-card>
-            <v-card tile class="pa-0" :color=color[optionIndex] flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
-            <v-card tile :color=color[optionIndex] flat>
-                <v-btn style="margin:0 !important" icon @click="play(option.id)"><v-icon>mdi-play</v-icon></v-btn>
-            </v-card>
-            <audio :src="current.type == 1 ? option.engaudio : option.chnaudio" :id="option.id"></audio>
+        <v-card class="pa-6" flat>
+        <v-row justify="center" align="center">
+            <v-col cols=12 md=3 sm=6 v-for="(option,optionIndex) in current.options">
+            <div align=center>
+                <v-card tile :disabled="(current.hint && !values.isHinted) || values.isSubmitted" @click="clickOnOption(option.id)" 
+                        :color=color[optionIndex] height=120px>
+                        <v-card height=100px flat>
+                            <v-card tile width=115px class="pa-2" flat>{{current.type == 1 ? option.eng : option.chn}}</v-card>
+                            <v-card tile width=130px class="pa-2" flat v-if="current.type == 2">{{option.pinyin}}</v-card>
+                            <v-card tile class="pa-0"  flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
+                            <audio :src="current.type == 1 ? option.engaudio : option.chnaudio" :id="option.id"></audio>
+                        </v-card>
+                </v-card>
+            </div>
+            </v-col>
+        </v-row>
         </v-card>
-        </v-radio-group>
-
-        
 
         <v-btn block v-if="values.role==1 && values.selected && !values.isSubmitted && !values.isHinted" @click="assist">Assist</v-btn>
         <v-btn block v-if="values.role==2 && values.selected && !values.isSubmitted && values.isHinted" @click="submit">Submit</v-btn>
         <v-btn block v-if="values.isSubmitted && values.selected && currentIndex<39" @click="next">Next</v-btn>
         <v-btn block disabled flat v-if="values.isSubmitted && values.selected && currentIndex>=39" >Quiz Completed</v-btn>
-    </v-card-text>
+    </v-card>
+    </v-container>
     `,
     data(){
         return{
@@ -197,6 +207,10 @@ Vue.component("quiz", {
         },
     },
     methods: {
+        clickOnOption: function(id){
+            this.values.selected = id;
+            play(id);
+        },
         play: function(id){
             play(id);
         },
