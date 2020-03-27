@@ -50,19 +50,14 @@ Vue.component("quiz", {
         </div>  
 
         <v-radio-group v-model="values.selected" :readonly="(current.hint && !values.isHinted) || values.isSubmitted">
-        <v-card class="d-flex justify-space-between mb-3" height=54px flat v-for="option in current.options">
-            <v-card class="pa-2" flat><v-radio :value=option.id></v-radio></v-card>
-            <v-card class="pa-2" flat>{{current.type == 1 ? option.eng : option.chn+ ' (' + option.pinyin + ')'}}</v-card>
-            <v-card class="pa-0"  flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
-            <v-card flat>
+        <v-card tile :color=color[optionIndex] class="d-flex justify-space-between mb-3" height=54px flat v-for="(option,optionIndex) in current.options">
+            <v-card tile class="pa-2" flat><v-radio :value=option.id></v-radio></v-card>
+            <v-card tile width=115px class="pa-2" :color=color[optionIndex] flat>{{current.type == 1 ? option.eng : option.chn+ ' (' + option.pinyin + ')'}}</v-card>
+            <v-card tile class="pa-0" :color=color[optionIndex] flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
+            <v-card tile :color=color[optionIndex] flat>
                 <v-btn style="margin:0 !important" icon @click="play(option.id)"><v-icon>mdi-play</v-icon></v-btn>
             </v-card>
             <audio :src="current.type == 1 ? option.engaudio : option.chnaudio" :id="option.id"></audio>
-            <v-card class="pa-2" flat>
-                <p v-if="(option.id == values.selected || option.id == current.word.id) && values.isSubmitted">
-                    {{current.word.id == option.id ? "Correct" : "Incorrect"}}
-                </p>
-            </v-card>
         </v-card>
         </v-radio-group>
 
@@ -172,7 +167,33 @@ Vue.component("quiz", {
                     return "Choose correct answer and assist."
                 }
             }
-        }
+        },
+        color: function(){
+            var hintColor = "#aed1ee", selectedColor = "#659ac6", incorrectColor = "#f1a4a4", correctColor = "#95b68f";
+            var tempColor = [];
+            var currentOptions = [];
+            currentOptions = this.current.options;
+
+            if(this.current.hint){
+                for(var i= 0; i<4; i++){
+                    if(currentOptions[i].id == this.current.hint && this.values.isHinted){
+                        tempColor[i] = hintColor;
+                    }
+                    if(currentOptions[i].id == this.values.selected && currentOptions[i].id != this.current.hint){
+                        tempColor[i] = selectedColor;
+                    }
+                    if(currentOptions[i].id == this.values.selected && this.values.isSubmitted && this.values.selected != this.current.word.id){
+                        tempColor[i] = incorrectColor;
+                    }
+                    if(this.values.isSubmitted && currentOptions[i].id == this.current.word.id){
+                        tempColor[i] = correctColor;
+                    }
+                }
+            } else{
+
+            }
+            return tempColor;
+        },
     },
     methods: {
         play: function(id){

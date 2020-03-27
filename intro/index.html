@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Social Cards</title>
+        <script src="./vue.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+        <link rel=stylesheet href="./style.css">
+    </head>
+    <body>
+        <div id=app>
+            <v-app>
+                <v-content>
+                <v-container>
+                    <v-row><v-col cols="12" sm="7" md="7">
+                    <v-stepper v-model="step" vertical>
+                        <v-stepper-step key=1 step=1>Participant Informed Consent</v-stepper-step>
+                        <v-stepper-content key=1 step=1>
+                            <v-card class="mb-12" flat>
+                                <h1>Participant Informed Consent</h1>
+                                <p>This document contains details about this research study. Feel free to ask any questions you may have. Participation is voluntary; you are free to choose not to participate or withdraw at any time without consequence.</p>
+                                <br/><br/>
+                                <h3>Study Title: Mandaring Language Learning</h3>
+                                <br/><br/>
+                                <h3>Person(s) Conducting the Study:</h3>
+                                <h5>Principal Investigator:</h5> 
+                                <p>Dr. Eric Ragan, CISE (eragan@ufl.edu)</p>
+                                <h5>Co-Investigator:</h5>
+                                <p>Jeremy Block, CISE (j.block@ufl.edu)</p>
+                                <p>Vibhav Goel, CISE (vibhavgoel@ufl.edu)</p>
+                                <p>Rui (Tammy) Huan, COE (rui.huang@ufl.edu)</p>
+                                <p>Dhrubo Paul, CISE (d.paul@ufl.edu)</p>
+                                <br/><br/>
+                                <h3>Purpose of the study:</h3>
+                                <p>This research seeks to understand how humans learn mandarin words with different technological interventions. This research will provide insight into the understanding of language learning with or without confusion.</p>
+                                <h3>What you will be asked to do:</h3>
+                                <p>You will be asked to learn a handful of mandarin words in a few different mediums. Initially you will be introduced to the words by flash card, then we will introduce our intervention with interactive feedback, then finally we will assess your understanding with two assessments; one immediately after the intervention and a similar assessment 2 days later. At the end of the first session we will also ask for your subjective evaluation of the intervention. You’ll be asked demographic questions for data analysis. For the days you are considered a participant in this study, <b>we ask that you avoid studying Mandarin in any way that may reinforce your learning / memory of the words introduced in this study.</b></p>
+                                <p>Your interactions with our intervention, your auditory utterances, facial expressions, and your survey responses will be recorded. You may choose not to participate if you do not wish your responses to be recorded. These records will be used for later analysis to determine language retention and predict confusion. </p>
+                                <h3>Time required:</h3>
+                                <p>2 sessions, up to 60 minutes total.</p>
+                                <h3>Risks and benefits:</h3>
+                                <p>Minimal to no risk is involved as a participant. This study is administered over the internet on participant’s own devices, thus risk is limited to regular computer/mobile use.</p>
+                                <p>Only the researchers will have access to the information we collect online. There is a minimal risk that security of any online data may be breached, but since no identifying information will be collected, and the online hosts (Zoom, and Qualtrics) uses encryption and other forms of protection, it is unlikely that a security breach of the online data will result in any adverse consequences for you.</p>
+                                <p>There are no direct benefits to participating in this study. However, if the proposed intervention is effective you may learn a few new words in Mandarin while also contributing to language learning research as a whole.</p>
+                                <h3>Compensation:</h3>
+                                <p>If you are enrolled in an approved course, you are eligible to receive course credit as compensation in this study. The credit granted will be based on the course guidelines set by your instructor up to but not exceeding 2% of your final grade for the course. It is necessary to provide a UFID to verify your identity before credit can be granted.</p>
+                                <h3>Withdrawal from the study:</h3>
+                                <p>You are free to withdraw your consent from the study and stop your participation at any moment for any reason without consequence. Any questions asked will be optional. If you choose to withdraw, your information will be discarded and destroyed. If you are taking this study for credit, you may withdraw your consent at any time without losing your credit.</p>
+                                <p>If you wish to discuss anything above or any discomforts you experience, please ask questions now or contact one of the researchers listed above.</p>
+                                <p>If you have any questions regarding your rights as a research subject, please contact the Institutional Review Board (IRB02) office ( (352) 392-0433 or irb2@ufl.edu.)</p>
+                                <h3>Agreement to participate:</h3>
+                                <p>Now that you’ve read about the study, if you wish to participate, verbally inform the researcher, “I agree to participate” to continue and select the option in the Demographic survey; if you do not consent to participate, verbally inform the researcher that, “I do not wish to participate” or close the Zoom conference window.</p>
+                            </v-card>
+                            <v-btn color="primary" @click="step++">I agree to participate</v-btn>
+                            <v-btn text >I do not agree to participate</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step key=2 step=2>Demographics Survey</v-stepper-step>
+                        <v-stepper-content key=2 step=2>
+                            <v-card class="mb-12"></v-card>
+                                <v-btn><a href="https://ufl.qualtrics.com/jfe/form/SV_e4WVbWpMKeGI4bH" target="_blank">Take the survey</a></v-btn>
+                                <br/>
+                                <v-btn color="primary" @click="step++">Continue</v-btn>
+                                <v-btn text>Cancel</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step key=3 step=3>Flashcards</v-stepper-step>
+                        <v-stepper-content key=3 step=3>
+                            <v-card class="mb-12"></v-card>
+                                <v-btn><a target="_blank" href="https://quizlet.com/_85fnpu?x=1jqt&i=e67r4">Cards</a></v-btn>
+                                <br/>
+                                <v-btn color="primary" @click="step++">Continue</v-btn>
+                                <v-btn text>Cancel</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step key=4 step=4>Play</v-stepper-step>
+                        <v-stepper-content key=4 step=4>
+                            <v-card class="mb-12"></v-card>
+                                
+                                <v-img height=400px contain src="./asset/1.jpg"></v-img>
+                                <p>Figure 1: Wait for the collaborator to give you a hint.</p>
+                                <br/><br/>
+                                
+                                <v-img height=400px contain src="./asset/2.jpg"></v-img>
+                                <p>Figure 2: The collaborator has hinted. You can now accept his answer or select any other option before submission.</p>
+                                <br/><br/>
+                                
+                                <v-img height=400px contain src="./asset/3.jpg"></v-img>
+                                <p>Figure 3: You have selected an option.</p>
+                                <br/><br/>
+                                
+                                <v-img height=400px contain src="./asset/4.jpg"></v-img>
+                                <p>Figure 4: Correct and Incorrect options are coded with color. Click "Next" to go to the next question.</p>
+                                <br/><br/>
+                                <v-btn><a target="_blank" href="../prompt">Begin</a></v-btn>
+                                <br/>
+                                <v-btn color="primary" @click="step++">Continue</v-btn>
+                                <v-btn text>Cancel</v-btn>
+                        </v-stepper-content>
+
+                        <v-stepper-step key=5 step=5>Assessment</v-stepper-step>
+                        <v-stepper-content key=5 step=5>
+                            <v-card class="mb-12"></v-card>
+                                <v-btn><a target="blank" href="https://ufl.qualtrics.com/jfe/form/SV_etAVXr3ujMJpibH">Take the assessment</a></v-btn>
+                        </v-stepper-content>
+                    </v-stepper>
+                </v-col>
+                </v-row>
+
+                </v-container>
+                </v-content>
+            </v-app>
+            
+        </div>
+        <script src="./script.js"></script>
+    </body>
+</html>
