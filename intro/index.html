@@ -55,31 +55,43 @@
                                 <h3>Agreement to participate:</h3>
                                 <p>Now that you’ve read about the study, if you wish to participate, verbally inform the researcher, “I agree to participate” to continue and select the option in the Demographic survey; if you do not consent to participate, verbally inform the researcher that, “I do not wish to participate” or close the Zoom conference window.</p>
                             </v-card>
-                            <v-btn color="primary" @click="step++">I agree to participate</v-btn>
-                            <v-btn text >I do not agree to participate</v-btn>
+                            <v-row class=pa-5><v-btn target="_blank" href="./asset/InformedConsent.pdf">Download Informed Consent</v-btn></v-row>
+                            <v-row class=pa-5><v-btn color="primary" @click="step++">I agree to participate</v-btn></v-row>
+                            <v-row class=pa-5><v-btn>I do not agree to participate</v-btn></v-row>
                         </v-stepper-content>
 
                         <v-stepper-step key=2 step=2>Demographics Survey</v-stepper-step>
                         <v-stepper-content key=2 step=2>
                             <v-card class="mb-12"></v-card>
-                                <v-btn><a href="https://ufl.qualtrics.com/jfe/form/SV_e4WVbWpMKeGI4bH" target="_blank">Take the survey</a></v-btn>
+                                <v-btn href="https://ufl.qualtrics.com/jfe/form/SV_e4WVbWpMKeGI4bH" target="_blank">Take the survey</v-btn>
                                 <br/>
                                 <v-btn color="primary" @click="step++">Continue</v-btn>
                                 <v-btn text>Cancel</v-btn>
                         </v-stepper-content>
 
-                        <v-stepper-step key=3 step=3>Flashcards</v-stepper-step>
+                        <v-stepper-step key=3 step=3>Words</v-stepper-step>
                         <v-stepper-content key=3 step=3>
                             <v-card class="mb-12"></v-card>
                                 <!--<v-btn><a target="_blank" href="https://quizlet.com/_85fnpu?x=1jqt&i=e67r4">Cards</a></v-btn>-->
-                                <v-btn><a target="_blank" href="../card">Cards</a></v-btn>
+                                <v-btn target="_blank" href="../list">Words</v-btn>
                                 <br/>
                                 <v-btn color="primary" @click="step++">Continue</v-btn>
                                 <v-btn text>Cancel</v-btn>
                         </v-stepper-content>
 
-                        <v-stepper-step key=4 step=4>Play</v-stepper-step>
+                        <v-stepper-step key=4 step=4>Test your knowledge</v-stepper-step>
                         <v-stepper-content key=4 step=4>
+                            <v-card class="mb-12"></v-card>
+                                <v-btn target="_blank" href="https://ufl.qualtrics.com/jfe/form/SV_0VbTm6XpcqO7LkF">Test</v-btn>
+                                <br/>
+                                <v-btn color="primary" @click="step++">Continue</v-btn>
+                        </v-stepper-content>
+
+                       
+
+
+                        <v-stepper-step key=5 step=5>Play</v-stepper-step>
+                        <v-stepper-content key=5 step=5>
                             <v-card class="mb-12"></v-card>
                                 
                                 <v-img height=400px contain src="./asset/1.jpg"></v-img>
@@ -97,16 +109,16 @@
                                 <v-img height=400px contain src="./asset/4.jpg"></v-img>
                                 <p>Figure 4: Correct and Incorrect options are coded with color. Click "Next" to go to the next question.</p>
                                 <br/><br/>
-                                <v-btn><a target="_blank" href="../prompt">Begin</a></v-btn>
+                                <v-btn target="_blank" href="../prompt">Begin</v-btn>
                                 <br/>
                                 <v-btn color="primary" @click="step++">Continue</v-btn>
                                 <v-btn text>Cancel</v-btn>
                         </v-stepper-content>
 
-                        <v-stepper-step key=5 step=5>Assessment</v-stepper-step>
-                        <v-stepper-content key=5 step=5>
+                        <v-stepper-step key=6 step=6>Assessment</v-stepper-step>
+                        <v-stepper-content key=6 step=6>
                             <v-card class="mb-12"></v-card>
-                                <v-btn><a target="blank" href="https://ufl.qualtrics.com/jfe/form/SV_etAVXr3ujMJpibH">Take the assessment</a></v-btn>
+                                <v-btn target="blank" href="https://ufl.qualtrics.com/jfe/form/SV_etAVXr3ujMJpibH">Take the assessment</v-btn>
                         </v-stepper-content>
                     </v-stepper>
                 </v-col>

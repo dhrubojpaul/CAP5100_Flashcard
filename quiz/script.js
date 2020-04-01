@@ -14,6 +14,21 @@ var setCountdown = function(component){
     }, 1000);
 }
 
+var shuffleArray = function(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+var getRandomInt = function(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
 var findObjectByID = function(asset, id){
     var object = asset.find(function(item){
         return item.id == id;
@@ -215,6 +230,7 @@ Vue.component("quiz", {
             play(id);
         },
         init: function(){
+            shuffleArray(this.questions);
             this.setup(this.currentIndex);
         },
         setup: function(qIndex){
@@ -255,7 +271,7 @@ Vue.component("quiz", {
             var component = this;
             setTimeout(function(){
                 component.autoHint();
-            },3000);
+            },getRandomInt(5000,8000));
         },
         autoSubmit: function(){
             this.values.selected = this.current.autoSubmittedOption;
