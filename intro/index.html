@@ -29,7 +29,7 @@
                                 <h3>Person(s) Conducting the Study:</h3>
                                 <h5>Principal Investigator:</h5> 
                                 <p>Sharon Lynn Chu (slchu@ufl.edu)</p>
-                                <h5>Co-Investigator:</h5>
+                                <h5>Co-Investigators:</h5>
                                 <p>Jeremy Block, CISE (j.block@ufl.edu)</p>
                                 <p>Vibhav Goel, CISE (vibhavgoel@ufl.edu)</p>
                                 <p>Rui (Tammy) Huan, COE (rui.huang@ufl.edu)</p>
@@ -38,12 +38,13 @@
                                 <h3>Purpose of the study:</h3>
                                 <p>This research seeks to understand how humans learn mandarin words with different technological interventions. This research will provide insight into the understanding of language learning with or without confusion.</p>
                                 <h3>What you will be asked to do:</h3>
-                                <p>You will be asked to learn a handful of mandarin words in a few different mediums. Initially you will be introduced to the words by flash card, then we will introduce our intervention with interactive feedback, then finally we will assess your understanding with two assessments; one immediately after the intervention and a similar assessment 2 days later. At the end of the first session we will also ask for your subjective evaluation of the intervention. You’ll be asked demographic questions for data analysis. For the days you are considered a participant in this study, <b>we ask that you avoid studying Mandarin in any way that may reinforce your learning / memory of the words introduced in this study.</b></p>
+                                <p>You will be asked to learn a handful of mandarin words in a few different mediums. Initially you will be introduced to the words in a list, then we will introduce our intervention with interactive feedback, then finally we will assess your understanding with two assessments; one immediately after the intervention and a similar assessment 2 days later. At the end of the first session we will also ask for your subjective evaluation of the intervention. You’ll be asked demographic questions for data analysis. For the days you are considered a participant in this study, <b>we ask that you avoid studying Mandarin in any way that may reinforce your learning / memory of the words introduced in this study.</b></p>
                                 <p>Your interactions with our intervention, your auditory utterances, facial expressions, and your survey responses will be recorded. You may choose not to participate if you do not wish your responses to be recorded. These records will be used for later analysis to determine language retention and predict confusion. </p>
                                 <h3>Time required:</h3>
                                 <p>2 sessions, up to 60 minutes total.</p>
                                 <h3>Risks and benefits:</h3>
-                                <p>Minimal to no risk is involved as a participant. This study is administered over the internet on participant’s own devices, thus risk is limited to regular computer/mobile use.</p>
+                                <p>Minimal to no risk is involved as a participant. This study is administered over the internet on participant’s own devices; thus, risk is limited to regular computer/mobile use.</p>
+                                <p>Deception is a central component of this study and the participant agrees to have their beliefs suspended for the course of the study. These elements should not pose any additional risk to the participant and at the end of the study, participants will be debriefed about what elements were faked and why.</p>
                                 <p>Only the researchers will have access to the information we collect online. There is a minimal risk that security of any online data may be breached, but since no identifying information will be collected, and the online hosts (Zoom, and Qualtrics) uses encryption and other forms of protection, it is unlikely that a security breach of the online data will result in any adverse consequences for you.</p>
                                 <p>There are no direct benefits to participating in this study. However, if the proposed intervention is effective you may learn a few new words in Mandarin while also contributing to language learning research as a whole.</p>
                                 <h3>Compensation:</h3>
@@ -53,7 +54,7 @@
                                 <p>If you wish to discuss anything above or any discomforts you experience, please ask questions now or contact one of the researchers listed above.</p>
                                 <p>If you have any questions regarding your rights as a research subject, please contact the Institutional Review Board (IRB02) office ( (352) 392-0433 or irb2@ufl.edu.)</p>
                                 <h3>Agreement to participate:</h3>
-                                <p>Now that you’ve read about the study, if you wish to participate, verbally inform the researcher, “I agree to participate” to continue and select the option in the Demographic survey; if you do not consent to participate, verbally inform the researcher that, “I do not wish to participate” or close the Zoom conference window.</p>
+                                <p>Now that you’ve read about the study, if you wish to participate, verbally inform the researcher, “I agree to participate” to continue and select the option below; if you do not consent to participate, verbally inform the researcher that, “I do not wish to participate” or close the Zoom conference window.</p>
                             </v-card>
                             <v-row class=pa-5><v-btn target="_blank" href="./asset/InformedConsent.pdf">Download Informed Consent</v-btn></v-row>
                             <v-row class=pa-5><v-btn color="primary" @click="step++">I agree to participate</v-btn></v-row>
@@ -63,34 +64,31 @@
                         <v-stepper-step key=2 step=2>Demographics Survey</v-stepper-step>
                         <v-stepper-content key=2 step=2>
                             <v-card class="mb-12"></v-card>
-                                <v-btn href="https://ufl.qualtrics.com/jfe/form/SV_e4WVbWpMKeGI4bH" target="_blank">Take the survey</v-btn>
+                                <v-btn href="https://ufl.qualtrics.com/jfe/form/SV_e4WVbWpMKeGI4bH" target="_blank">Enter</v-btn>
                                 <br/>
-                                <v-btn color="primary" @click="step++">Continue</v-btn>
-                                <v-btn text>Cancel</v-btn>
+                                <v-btn color="primary" @click="step++">Next</v-btn>
                         </v-stepper-content>
 
-                        <v-stepper-step key=3 step=3>Words</v-stepper-step>
+                        <v-stepper-step key=3 step=3>List</v-stepper-step>
                         <v-stepper-content key=3 step=3>
                             <v-card class="mb-12"></v-card>
-                                <!--<v-btn><a target="_blank" href="https://quizlet.com/_85fnpu?x=1jqt&i=e67r4">Cards</a></v-btn>-->
-                                <v-btn target="_blank" href="../list">Words</v-btn>
+                                <v-btn target="_blank" href="../list">Enter</v-btn>
                                 <br/>
-                                <v-btn color="primary" @click="step++">Continue</v-btn>
-                                <v-btn text>Cancel</v-btn>
+                                <v-btn color="primary" @click="step++">Next</v-btn>
                         </v-stepper-content>
 
-                        <v-stepper-step key=4 step=4>Test your knowledge</v-stepper-step>
+                        <v-stepper-step key=4 step=4>Pre-Test</v-stepper-step>
                         <v-stepper-content key=4 step=4>
                             <v-card class="mb-12"></v-card>
-                                <v-btn target="_blank" href="https://ufl.qualtrics.com/jfe/form/SV_0VbTm6XpcqO7LkF">Test</v-btn>
+                                <v-btn target="_blank" href="https://ufl.qualtrics.com/jfe/form/SV_0VbTm6XpcqO7LkF">Enter</v-btn>
                                 <br/>
-                                <v-btn color="primary" @click="step++">Continue</v-btn>
+                                <v-btn color="primary" @click="step++">Next</v-btn>
                         </v-stepper-content>
 
                        
 
 
-                        <v-stepper-step key=5 step=5>Play</v-stepper-step>
+                        <v-stepper-step key=5 step=5>Collaborate with Interactive Feedback</v-stepper-step>
                         <v-stepper-content key=5 step=5>
                             <v-card class="mb-12"></v-card>
                                 
@@ -109,10 +107,9 @@
                                 <v-img height=400px contain src="./asset/4.jpg"></v-img>
                                 <p>Figure 4: Correct and Incorrect options are coded with color. Click "Next" to go to the next question.</p>
                                 <br/><br/>
-                                <v-btn target="_blank" href="../prompt">Begin</v-btn>
+                                <v-btn target="_blank" href="../prompt">Enter</v-btn>
                                 <br/>
-                                <v-btn color="primary" @click="step++">Continue</v-btn>
-                                <v-btn text>Cancel</v-btn>
+                                <v-btn color="primary" @click="step++">Next</v-btn>
                         </v-stepper-content>
 
                         <v-stepper-step key=6 step=6>Assessment</v-stepper-step>
