@@ -1,3 +1,24 @@
+function downloadCSV(text){
+    const blob = new Blob([text], {type:"text/plain"});
+    downloadFile(blob, "cap5100h.csv");
+}  
+function downloadFile(blob, filename){
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");   
+    a.href=url;
+    a.download = filename;
+    a.click();
+    a.remove();
+    document.addEventListener("focus",w=>{window.URL.revokeObjectURL(blob)});
+}
+
+
+
+
+
+
+
+
 var setCountdown = function(component){
     var countupto = new Date().getTime() + component.duration*1000;
     var x = setInterval(function() {
@@ -33,7 +54,6 @@ var findObjectByID = function(asset, id){
     var object = asset.find(function(item){
         return item.id == id;
     });
-    //return JSON.parse(JSON.stringify(object));  
     return object;
 }
 
@@ -91,12 +111,13 @@ Vue.component("quiz", {
         <v-btn block v-if="values.role==1 && values.selected && !values.isSubmitted && !values.isHinted" @click="assist">Assist</v-btn>
         <v-btn block v-if="values.role==2 && values.selected && !values.isSubmitted && values.isHinted" @click="submit">Submit</v-btn>
         <v-btn block v-if="values.isSubmitted && values.selected && currentIndex<39" @click="next">Next</v-btn>
-        <v-btn block disabled flat v-if="values.isSubmitted && values.selected && currentIndex>=39" >Quiz Completed</v-btn>
+        <v-btn block flat v-if="values.isSubmitted && values.selected && currentIndex>=39" @click="download">Quiz is Complete. Download Data.</v-btn>
     </v-card>
     </v-container>
     `,
     data(){
         return{
+            csv: "sl,word,answer,hintdelay,submitdelay",
             duration:600,
             score: {right:0,wrong:0,total:0},
             countdown: undefined,
@@ -222,6 +243,9 @@ Vue.component("quiz", {
         },
     },
     methods: {
+        download: function(){
+            downloadCSV(this.csv);
+        },
         clickOnOption: function(id){
             this.values.selected = id;
             play(id);
@@ -248,6 +272,11 @@ Vue.component("quiz", {
             current.autoSubmittedOption = questions[qIndex].s;
             current.word = findObjectByID(asset, questions[qIndex].q);
             current.options = [];
+            
+            //logging
+            current.time = {init:undefined,hinted:undefined,submitted:undefined};
+            current.time.init = new Date().getTime();
+            
             questions[qIndex].o.forEach(function(item,index){
                 current.options.push(findObjectByID(asset, item));
             });
@@ -266,6 +295,7 @@ Vue.component("quiz", {
         autoHint: function(){
             this.values.isHinted = true;
             this.values.selected = this.current.hint;
+            this.current.time.hinted = new Date().getTime();
         },
         startAssistCountdown: function(){
             var component = this;
@@ -292,6 +322,12 @@ Vue.component("quiz", {
             if(this.values.selected == this.current.word.id){this.score.right++;}
             else{this.score.wrong++;}
             this.score.total++;
+
+            this.current.time.submitted = new Date().getTime();
+
+            this.csv += "\n" + parseInt(parseInt(this.currentIndex)+parseInt(1)) +","+ this.current.word.eng +","+ findObjectByID(this.asset, this.values.selected).eng 
+                        + "," + parseFloat(parseFloat(this.current.time.hinted)-parseFloat(this.current.time.init))
+                        + "," + parseFloat(parseFloat(this.current.time.submitted)-parseFloat(this.current.time.hinted));
         },
         next: function(){
             this.currentIndex++;
