@@ -77,8 +77,8 @@ Vue.component("quiz", {
             <div align=center>
                 <v-card tile height=110px @click="play('word')" flat>
                     <v-card flat tile v-if="current.type == 2"><img :src="current.word.image" height=60px></img></v-card>
-                    <v-card flat tile class="display-1 font-weight-black" height=60px v-if="current.type==1">{{current.word.chn}}</v-card>
-                    <v-card flat tile class="headline font-weight-medium" height=50px>{{current.type==1 ? current.word.pinyin : current.word.eng}}</v-card>
+                    <v-card flat tile class="display-1 font-weight-black" height=60px v-if="current.type==1"></v-card>
+                    <v-card flat tile class="headline font-weight-medium" height=50px>{{current.type==1 ? current.word.chn : current.word.eng}}</v-card>
                     <audio autoplay id="word" :src="current.type == 1 ? current.word.chnaudio : current.word.engaudio"></audio>
                 </v-card>
             </div>
@@ -98,7 +98,6 @@ Vue.component("quiz", {
                         :color=color[optionIndex] height=120px>
                         <v-card height=100px flat>
                             <v-card tile width=115px class="pa-2" flat>{{current.type == 1 ? option.eng : option.chn}}</v-card>
-                            <v-card tile width=130px class="pa-2" flat v-if="current.type == 2">{{option.pinyin}}</v-card>
                             <v-card tile class="pa-0"  flat v-if="current.type == 1"><img :src="option.image" height=54px></img></v-card>
                             <audio :src="current.type == 1 ? option.engaudio : option.chnaudio" :id="option.id"></audio>
                         </v-card>
