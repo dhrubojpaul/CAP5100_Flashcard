@@ -94,7 +94,7 @@ Vue.component("quiz", {
         <v-row justify="center" align="center">
             <v-col cols=12 md=3 sm=6 v-for="(option,optionIndex) in current.options">
             <div align=center>
-                <v-card tile :disabled="(current.hint && !values.isHinted) || values.isSubmitted" @click="clickOnOption(option.id)" 
+                <v-card tile :disabled="(current.hint && !values.isHinted)" @click="clickOnOption(option.id)" 
                         :color=color[optionIndex] height=120px>
                         <v-card height=100px flat>
                             <v-card tile width=115px class="pa-2" flat>{{current.type == 1 ? option.eng : option.chn}}</v-card>
@@ -116,7 +116,7 @@ Vue.component("quiz", {
     `,
     data(){
         return{
-            csv: "sl,word,answer,hintdelay,submitdelay",
+            csv: "sl,word,answer,hintdelay,submitdelay,nextdelay",
             duration:600,
             score: {right:0,wrong:0,total:0},
             countdown: undefined,
@@ -246,7 +246,9 @@ Vue.component("quiz", {
             downloadCSV(this.csv);
         },
         clickOnOption: function(id){
-            this.values.selected = id;
+            if(!this.values.isSubmitted){
+                this.values.selected = id;
+            }
             play(id);
         },
         play: function(id){
@@ -300,7 +302,7 @@ Vue.component("quiz", {
             var component = this;
             setTimeout(function(){
                 component.autoHint();
-            },getRandomInt(5000,8000));
+            },getRandomInt(5000,7000));
         },
         autoSubmit: function(){
             this.values.selected = this.current.autoSubmittedOption;
@@ -324,11 +326,23 @@ Vue.component("quiz", {
 
             this.current.time.submitted = new Date().getTime();
 
-            this.csv += "\n" + parseInt(parseInt(this.currentIndex)+parseInt(1)) +","+ this.current.word.eng +","+ findObjectByID(this.asset, this.values.selected).eng 
+            if(this.currentIndex>=39){
+                this.csv += "\n" + parseInt(parseInt(this.currentIndex)+parseInt(1)) +","+ this.current.word.eng +","+ findObjectByID(this.asset, this.values.selected).eng 
                         + "," + parseFloat(parseFloat(this.current.time.hinted)-parseFloat(this.current.time.init))
-                        + "," + parseFloat(parseFloat(this.current.time.submitted)-parseFloat(this.current.time.hinted));
+                        + "," + parseFloat(parseFloat(this.current.time.submitted)-parseFloat(this.current.time.hinted))
+                        + ",0";
+            }
+            
         },
         next: function(){
+            this.current.time.next = new Date().getTime();
+            if(this.currentIndex<39){
+                this.csv += "\n" + parseInt(parseInt(this.currentIndex)+parseInt(1)) +","+ this.current.word.eng +","+ findObjectByID(this.asset, this.values.selected).eng 
+                        + "," + parseFloat(parseFloat(this.current.time.hinted)-parseFloat(this.current.time.init))
+                        + "," + parseFloat(parseFloat(this.current.time.submitted)-parseFloat(this.current.time.hinted))
+                        + "," + parseFloat(parseFloat(this.current.time.next)-parseFloat(this.current.time.submitted));
+            }
+            
             this.currentIndex++;
             this.setup(this.currentIndex);
         },
